@@ -19,6 +19,9 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
+  String? mLogin = "";
+  String mPassword = "";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,21 +35,26 @@ class _LoginBodyState extends State<LoginBody> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(16.0),
-            child: TextField(
-              obscureText: false,
+            child: TextFormField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.blueAccent,
                   ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8.0),
-                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                labelText: "Login",
+                labelText: 'Username',
               ),
+              onSaved: (String? value) {
+                mLogin = value;
+              },
+              validator: (String? value) {
+                return (value != null && value.contains('@'))
+                    ? 'Do not use the @ char.'
+                    : null;
+              },
             ),
           ),
           const Padding(
